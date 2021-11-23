@@ -1,4 +1,4 @@
-import axios from "axios"
+import api from "@/api/api"
 
 export const loadProfileData = async ( { commit, rootState } ) => {
 
@@ -7,7 +7,7 @@ export const loadProfileData = async ( { commit, rootState } ) => {
         commit('setLoading', true, { root: true })
 
         const user_id = rootState.authModule.user.id
-        const { data } = await axios.get(`/profiles/${ user_id }`)
+        const { data } = await api.get(`/profiles/${ user_id }`)
 
         commit('setLoading', false, { root: true })
 
@@ -24,14 +24,14 @@ export const loadProfileData = async ( { commit, rootState } ) => {
 
 }
 
-export const updateProfileData = async ( { commit, dispatch, state, rootState }, data ) => {
+export const updateProfileData = async ( { dispatch, rootState }, data ) => {
 
     let profileUpdated
 
     try{
 
         const user_id = rootState.authModule.user.id
-        await axios.put(`/profiles/${ user_id }`, data)
+        await api.put(`/profiles/${ user_id }`, data)
 
         profileUpdated = true
 
@@ -52,7 +52,7 @@ export const loadUserOrders = async ({ commit, rootState }, { from = null, to = 
         commit('setLoading', true, { root: true })
 
         const user_id = rootState.authModule.user.id
-        const { data } = await axios.get(`/orders/user/${ user_id }?from=${ from }&to=${ to }`)
+        const { data } = await api.get(`/orders/user/${ user_id }?from=${ from }&to=${ to }`)
 
         commit('setOrders', data.orders)
         commit('setOrdersQuantity', data.quantity)
@@ -67,7 +67,7 @@ export const loadUserOrders = async ({ commit, rootState }, { from = null, to = 
 
 }
 
-export const makeOrder = async ({ commit, state, dispatch }, order) => {
+export const makeOrder = async ({ state, dispatch }, order) => {
 
     let orderHasBeenCreated
 
@@ -78,7 +78,7 @@ export const makeOrder = async ({ commit, state, dispatch }, order) => {
             address: state.address
         }
 
-        await axios.post('/orders', orderData)
+        await api.post('/orders', orderData)
         orderHasBeenCreated = true
 
         await dispatch('loadUserOrders', {})
@@ -92,12 +92,12 @@ export const makeOrder = async ({ commit, state, dispatch }, order) => {
 
 }
 
-export const fetchProductPrice = async ({ commit, state, dispatch }) => {
+export const fetchProductPrice = async ({ commit }) => {
     
     let productPrice = 0.0
 
     try{
-        const { data } = await axios.get('/product_price')
+        const { data } = await api.get('/product_price')
         productPrice = data.product_price
     }catch(error){
         console.table(error)
