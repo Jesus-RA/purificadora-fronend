@@ -1,0 +1,41 @@
+:root{
+    --primary-color: #00e0ff;
+    --secondary-color: #74f9ff;
+}
+
+.text-primary{
+    color: var(--primary-color) !important;
+}
+
+.btn-primary{
+    background-color: var(--primary-color) !important;  
+    border-color: var(--primary-color) !important;
+}
+
+.bg-primary{
+    background-color: var(--primary-color) !important;    
+}
+
+.text-secondary{
+    color: var(--secondary-color) !important;
+}
+
+.btn-secondary{
+    background-color: var(--secondary-color) !important;
+    border-color: var(--secondary-color) !important;
+}
+
+.bg-secondary{
+    background-color: var(--secondary-color) !important;    
+}
+
+/* $theme-colors: (
+  "primary":    #00e0ff,
+  "secondary":  #74f9ff,
+  "success":    #198754,
+  "info":       #0dcaf0,
+  "warning":    #ffc107,
+  "danger":     #dc3545,
+  "light":      #f8f9fa,
+  "dark":       #343a40
+); */
